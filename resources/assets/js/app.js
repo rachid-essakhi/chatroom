@@ -7,16 +7,44 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+var messages = [
+  {id: 1, msg: "Hello", senderName: "Rachid"},
+  {id: 2, msg: "Hey man", senderName: "Ahmed"}
+];
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+(function($) {
+	var otaku = {
+		vars	: {
+			AllCoversCached								: true,
+			currentProjectProgress				: 30
+		},
+		dom		: {
+			window												: $(window),
+			messages											: $('.messages'),
+			message									   		: $('.message'),
+			form									      	: $('.form'),
+			sendBtn								      	: $('.form button'),
+			input									        : $('.form input')
+		},
+		init: function () {
+			otaku.events();
+      _.forEach(messages, function(message) {
+        otaku.dom.messages.append(
+          '<div class="message">' +
+            '<span>' + message.senderName + '</span>' +
+            '<p>' + message.msg + '</p>' +
+          '</div>'
+        );
+      });
+		},
+		events: function () {
+			otaku.dom.sendBtn.on("click", function() {
 
-Vue.component('example', require('./components/Example.vue'));
+			});
+		}
+	};
 
-const app = new Vue({
-    el: '#app'
-});
+	$(document).ready(function() {
+		otaku.init();
+	});
+})(jQuery);
